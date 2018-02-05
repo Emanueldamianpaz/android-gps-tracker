@@ -27,7 +27,11 @@ public class RegistradorKML {
 
     public RegistradorKML(){
         fichero = new File("ruta.kml");
+    }
 
+    /* ============================ Métodos ============================ */
+
+    public void abrirFichero(){
         try {
             flujoSalida = new FileWriter(fichero);
             filtroSalida = new PrintWriter(flujoSalida);
@@ -40,8 +44,6 @@ public class RegistradorKML {
             e.printStackTrace();
         }
     }
-
-    /* ============================ Métodos ============================ */
 
     public void cerrarFichero(){
         try {
