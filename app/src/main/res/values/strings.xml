@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Registro de ruta GPS</string>
+
+    <string name="texto_iniciar">Iniciar Tracking</string>
+    <string name="texto_parar">Parar Tracking</string>
+    <string name="texto_maps">Ver ruta guardada</string>
+</resources>
