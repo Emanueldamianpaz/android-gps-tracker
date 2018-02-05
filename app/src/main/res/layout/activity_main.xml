@@ -3,11 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <ToggleButton
         android:id="@+id/botonGPS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/texto_iniciar"/>
+        android:textOff="@string/texto_iniciar"
+        android:textOn="@string/texto_parar"/>
     <Button
         android:id="@+id/botonMaps"
         android:layout_width="match_parent"
@@ -18,5 +19,6 @@
     <TextView
         android:id="@+id/texto"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

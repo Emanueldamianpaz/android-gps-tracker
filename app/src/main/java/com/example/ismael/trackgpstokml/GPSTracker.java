@@ -38,25 +38,21 @@ public class GPSTracker extends AppCompatActivity
 	private static final int PETICION_PERMISO_LOCALIZACION = 101;
 	private static final int PETICION_CONFIG_UBICACION = 201;
 
-	private GoogleApiClient apiClient;
+	public GoogleApiClient apiClient;
 	private Activity contexto;
 	private RegistradorKML registrador;
-
-	private TextView lblLatitud;
-	private TextView lblLongitud;
-	private ToggleButton btnActualizar;
 
 	private LocationRequest locRequest;
 
 	public GPSTracker(Activity contexto, RegistradorKML registrador){
+		this.contexto = contexto;
+		this.registrador = registrador;
 		//Construcción cliente API Google
-		apiClient = new GoogleApiClient.Builder(this)
+		apiClient = new GoogleApiClient.Builder(this.contexto)
 				.enableAutoManage(this, this)
 				.addConnectionCallbacks(this)
 				.addApi(LocationServices.API)
 				.build();
-		this.contexto = contexto;
-		this.registrador = registrador;
 	}
 
 	public void toggleLocationUpdates(boolean enable) {
@@ -100,7 +96,6 @@ public class GPSTracker extends AppCompatActivity
 							status.startResolutionForResult(contexto, PETICION_CONFIG_UBICACION);
 						} catch (IntentSender.SendIntentException e) {
 							// Pasa algo raro al pedir configurar ubicacion
-							btnActualizar.setChecked(false);
 							Log.i(LOGTAG, "Error al intentar solucionar configuración de ubicación");
 						}
 
@@ -108,7 +103,6 @@ public class GPSTracker extends AppCompatActivity
 					// No se pueede pedir cambio de configuracion
 					case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
 						Log.i(LOGTAG, "No se puede cumplir la configuración de ubicación necesaria");
-						btnActualizar.setChecked(false);
 						break;
 				}
 			}
@@ -148,10 +142,10 @@ public class GPSTracker extends AppCompatActivity
 	public void onConnected(@Nullable Bundle bundle) {
 		//Conectado correctamente a Google Play Services
 
-		if (ActivityCompat.checkSelfPermission(this,
+		if (ActivityCompat.checkSelfPermission(this.contexto,
 				Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-			ActivityCompat.requestPermissions(this,
+			ActivityCompat.requestPermissions(this.contexto,
 					new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
 					PETICION_PERMISO_LOCALIZACION);
 		} else {
@@ -215,7 +209,6 @@ public class GPSTracker extends AppCompatActivity
 						break;
 					case Activity.RESULT_CANCELED:
 						Log.i(LOGTAG, "El usuario no ha realizado los cambios de configuración necesarios");
-						btnActualizar.setChecked(false);
 						break;
 				}
 				break;

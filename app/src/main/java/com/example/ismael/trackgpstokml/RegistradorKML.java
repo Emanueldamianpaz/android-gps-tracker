@@ -1,5 +1,7 @@
 package com.example.ismael.trackgpstokml;
 
+import android.content.Context;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +16,7 @@ public class RegistradorKML {
     private static final String KML_HEADER =
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" +
-            "  <Placemark>";
+            "  <Placemark>\n";
 
     private static final String KML_FOOTER =
             "</Placemark>\n</kml>";
@@ -25,8 +27,8 @@ public class RegistradorKML {
 
     /* ============================ Constructores ============================ */
 
-    public RegistradorKML(){
-        fichero = new File("ruta.kml");
+    public RegistradorKML(Context context){
+        fichero = new File(context.getFilesDir(), "ruta.kml");
     }
 
     /* ============================ Métodos ============================ */
@@ -64,11 +66,11 @@ public class RegistradorKML {
             flujoSalida = new FileWriter(fichero, true);
             filtroSalida = new PrintWriter(flujoSalida);
 
-            filtroSalida.append("<coordinates> ");
+            filtroSalida.append("    <coordinates> ");
             filtroSalida.append(latitud + ", "+ longitud);
             if(altura != 0)
                 filtroSalida.append(", "+ altura);
-            filtroSalida.append("</coordinates> \n");
+            filtroSalida.append(" </coordinates> \n");
 
             filtroSalida.close();
             flujoSalida.close();
