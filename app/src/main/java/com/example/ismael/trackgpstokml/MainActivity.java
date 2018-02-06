@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         gps = new GPSTracker(this, registro);
         gps.apiClient.connect();
 
+        /* ---------------------------- Botones ----------------------------*/
+
         botonGPS.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // te imaginas que se ve el mapa?
+                // Aquí se lanza el intent de maps
 
             }
         });

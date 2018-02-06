@@ -66,11 +66,9 @@ public class RegistradorKML {
             flujoSalida = new FileWriter(fichero, true);
             filtroSalida = new PrintWriter(flujoSalida);
 
-            filtroSalida.append("    <coordinates> ");
-            filtroSalida.append(latitud + ", "+ longitud);
-            if(altura != 0)
-                filtroSalida.append(", "+ altura);
-            filtroSalida.append(" </coordinates> \n");
+            filtroSalida.append("<point>\n    <coordinates> ");
+            filtroSalida.append(latitud + ", "+ longitud+", "+ altura);
+            filtroSalida.append(" </coordinates> \n</point>\n");
 
             filtroSalida.close();
             flujoSalida.close();
