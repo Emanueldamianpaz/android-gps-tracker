@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ *  Clase que manipula el fichero kml de texto
  * Created by Ismael on 05/02/2018.
  */
-
 public class RegistradorKML {
+
+    public static String FICHERO = "ruta.kml";
 
     private static final String KML_HEADER =
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -21,14 +23,14 @@ public class RegistradorKML {
     private static final String KML_FOOTER =
             "</Placemark>\n</kml>";
 
-    public File fichero;
+    private File fichero;
     private FileWriter flujoSalida;
     private PrintWriter filtroSalida;
 
     /* ============================ Constructores ============================ */
 
     public RegistradorKML(Context context){
-        fichero = new File(context.getFilesDir(), "ruta.kml");
+        fichero = new File(context.getFilesDir(), FICHERO);
     }
 
     /* ============================ Métodos ============================ */
@@ -67,7 +69,7 @@ public class RegistradorKML {
             filtroSalida = new PrintWriter(flujoSalida);
 
             filtroSalida.append("<point>\n    <coordinates> ");
-            filtroSalida.append(latitud + ", "+ longitud+", "+ altura);
+            filtroSalida.append(latitud + ","+ longitud+","+ altura);
             filtroSalida.append(" </coordinates> \n</point>\n");
 
             filtroSalida.close();
@@ -76,5 +78,6 @@ public class RegistradorKML {
             e.printStackTrace();
         }
     }
+
 
 }
