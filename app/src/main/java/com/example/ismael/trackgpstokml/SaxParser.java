@@ -77,8 +77,8 @@ public class SaxParser extends DefaultHandler {
                 /* Entraremos aquí cada vez que sax lea un </coordinates> */
 
                 // Cogemos coordenadas mediante los indexOf de las comas
-                Double latitud = Double.parseDouble(textoLeido.substring(0, textoLeido.indexOf(',')-1));
-                Double longitud = Double.parseDouble(textoLeido.substring(textoLeido.indexOf(',')+1, textoLeido.lastIndexOf(',')-1));
+                Double latitud = Double.parseDouble(textoLeido.substring(0, textoLeido.indexOf(',')));
+                Double longitud = Double.parseDouble(textoLeido.substring(textoLeido.indexOf(',')+1, textoLeido.lastIndexOf(',')));
                 //Double altura = Double.parseDouble(textoLeido.substring(textoLeido.lastIndexOf(',')+1, textoLeido.length()));
 
                 coordenadas = new LatLng(latitud, longitud);
