@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static ToggleButton botonGPS;
+    public static ToggleButton botonGPS;
     private static Button botonMaps;
     private static GPSTracker gps;
     private static RegistradorKML registro;

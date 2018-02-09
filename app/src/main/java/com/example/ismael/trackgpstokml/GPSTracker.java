@@ -74,6 +74,7 @@ public class GPSTracker extends AppCompatActivity
 	}
 
 	/**
+	 * TODO método importante
 	 * Se configuran los updates entre otras cosas
 	 */
 	private void enableLocationUpdates() {
@@ -178,6 +179,7 @@ public class GPSTracker extends AppCompatActivity
 	}
 
 	/**
+	 * TODO método importante
 	 * Se lanza periódicamente si hemos activado las actualizaciones
 	 * @param loc
 	 */
@@ -189,6 +191,12 @@ public class GPSTracker extends AppCompatActivity
 		}
 	}
 
+	/**
+	 * TODO Método interesante: gestiona lo que pasa cuando aceptamos/rechazamos permisos
+	 * @param requestCode
+	 * @param permissions
+	 * @param grantResults
+	 */
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 		if (requestCode == PETICION_PERMISO_LOCALIZACION) {
@@ -204,10 +212,10 @@ public class GPSTracker extends AppCompatActivity
 				updateUI(lastLocation);
 
 			} else {
-				//Permiso denegado:
-				//Deberíamos deshabilitar toda la funcionalidad relativa a la localización.
+				//Permiso denegado, desactivamos botón que hemos encendido
 
 				Log.e(LOGTAG, "Permiso denegado");
+				MainActivity.botonGPS.setChecked(false);
 			}
 		}
 	}
@@ -228,6 +236,10 @@ public class GPSTracker extends AppCompatActivity
 		}
 	}
 
+	/**
+	 * TODO Método que se lanza cuando recién actualiza
+	 * @param location
+	 */
 	@Override
 	public void onLocationChanged(Location location) {
 

@@ -24,7 +24,7 @@ En la página Issues puedes encontrar tareas por realizar (issues) y objetivos q
   4. Sube la nueva rama: `git push origin <nombre-rama>`</li>
   5. Inicia un pull request en el repositorio :D</li>
       </p></details>
-	  
+	  <br>
 	  
 * Gestionando tareas: añadiendo, proponiendo funciones, clarificando, clasificando, ...
 * Mejorando el fichero [README](README.md) y la documentación

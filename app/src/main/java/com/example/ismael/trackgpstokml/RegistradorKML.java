@@ -65,6 +65,9 @@ public class RegistradorKML {
 
     public void addPoint(double latitud, double longitud, double altura){
         try {
+            if(latitud == 0 || longitud == 0)
+                throw new IOException("Coordenadas nulas.");
+
             flujoSalida = new FileWriter(fichero, true);
             filtroSalida = new PrintWriter(flujoSalida);
 
@@ -74,9 +77,7 @@ public class RegistradorKML {
 
             filtroSalida.close();
             flujoSalida.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { System.out.println("Se han saltado coordenadas por ser nulas.");}
     }
 
 
