@@ -2,7 +2,6 @@ package com.example.ismael.trackgpstokml;
 
 import android.graphics.Color;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase que lee el fichero kml
+ * Clase de SAX que especifíca que se tiene que hacer mientras se lee el fichero KML
  */
 public class SaxHandler extends DefaultHandler {
 
@@ -79,19 +78,21 @@ public class SaxHandler extends DefaultHandler {
 
                 /* Entraremos aquí cada vez que sax lea un </coordinates> */
 
-                // Cogemos coordenadas mediante los indexOf de las comas. Para saber si hay que sumar o restar al índice haz pruebas con SYSO
-                Double latitud = Double.parseDouble(textoLeido.substring(0, textoLeido.indexOf(',')));
-                Double longitud = Double.parseDouble(textoLeido.substring(textoLeido.indexOf(',')+1, textoLeido.lastIndexOf(',')));
-                //Double altura = Double.parseDouble(textoLeido.substring(textoLeido.lastIndexOf(',')+1, textoLeido.length()));
+                try {
+                    // Cogemos coordenadas mediante los indexOf de las comas. Para saber si hay que sumar o restar al índice haz pruebas con SYSO
+                    Double latitud = Double.parseDouble(textoLeido.substring(0, textoLeido.indexOf(',')));
+                    Double longitud = Double.parseDouble(textoLeido.substring(textoLeido.indexOf(',') + 1, textoLeido.lastIndexOf(',')));
+                    //Double altura = Double.parseDouble(textoLeido.substring(textoLeido.lastIndexOf(',')+1, textoLeido.length()));
 
-                coordenadas = new LatLng(latitud, longitud);
+                    coordenadas = new LatLng(latitud, longitud);
 
-                // Si queremos añadir los puntos por marcadores
-                // mapa.addMarker(new MarkerOptions().position(coordenadas));
+                    // Si queremos añadir los puntos por marcadores
+                    // mapa.addMarker(new MarkerOptions().position(coordenadas));
 
-                // Si queremos crear una ruta
-                linea.add(coordenadas);
-           }
+                    // Si queremos crear una ruta
+                    linea.add(coordenadas);
+                }catch(Exception e){ System.out.println("Saltando coordenadas errróneas: " + textoLeido); }
+            }
 
            // Reseteamos variables
            textoLeido = "";
@@ -113,7 +114,7 @@ public class SaxHandler extends DefaultHandler {
     public void endDocument() throws SAXException {
         // Añadimos linea (el array de puntos que hemos ido guardando)
         if(!linea.isEmpty()) {
-            ruta.addAll(linea).color(Color.GREEN);
+            ruta.addAll(linea).color(Color.BLUE);
         }else
             System.out.println("Error, no hay puntos o no hay fichero.");
 
