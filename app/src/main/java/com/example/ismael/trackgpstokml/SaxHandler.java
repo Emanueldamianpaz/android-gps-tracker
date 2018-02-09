@@ -17,23 +17,26 @@ import java.util.List;
 /**
  * Clase que lee el fichero kml
  */
-public class SaxParser extends DefaultHandler {
+public class SaxHandler extends DefaultHandler {
 
     private GoogleMap mapa;
 
+    // Variables que necesitemos en SAX
     private boolean dentroEtiqueta;
     private String textoLeido;
 
-    LatLng coordenadas; // coordenadas de 1 punto
+    LatLng coordenadas; // Coordenadas de 1 punto
 
-    List<LatLng> linea; // lista de puntos para hacer una ruta
+    List<LatLng> linea; // Lista de puntos para hacer una ruta (si quieres hacerla)
+    PolylineOptions ruta; // Esto será la ruta
 
     /* -------------------- Constructor -------------------- */
 
-    public SaxParser(GoogleMap mapa){
+    public SaxHandler(GoogleMap mapa){
         this.mapa = mapa;
         dentroEtiqueta = false;
         linea = new ArrayList<>();
+        ruta = new PolylineOptions();
     }
 
     /* -------------------- Contenido etiqueta -------------------- */
@@ -76,15 +79,15 @@ public class SaxParser extends DefaultHandler {
 
                 /* Entraremos aquí cada vez que sax lea un </coordinates> */
 
-                // Cogemos coordenadas mediante los indexOf de las comas
+                // Cogemos coordenadas mediante los indexOf de las comas. Para saber si hay que sumar o restar al índice haz pruebas con SYSO
                 Double latitud = Double.parseDouble(textoLeido.substring(0, textoLeido.indexOf(',')));
                 Double longitud = Double.parseDouble(textoLeido.substring(textoLeido.indexOf(',')+1, textoLeido.lastIndexOf(',')));
                 //Double altura = Double.parseDouble(textoLeido.substring(textoLeido.lastIndexOf(',')+1, textoLeido.length()));
 
                 coordenadas = new LatLng(latitud, longitud);
 
-                // Si queremos añadir los marcadores de puntos separados
-                //mapa.addMarker(new MarkerOptions().position(coordenadas));
+                // Si queremos añadir los puntos por marcadores
+                // mapa.addMarker(new MarkerOptions().position(coordenadas));
 
                 // Si queremos crear una ruta
                 linea.add(coordenadas);
@@ -109,9 +112,21 @@ public class SaxParser extends DefaultHandler {
     @Override
     public void endDocument() throws SAXException {
         // Añadimos linea (el array de puntos que hemos ido guardando)
-        mapa.addPolyline(new PolylineOptions().addAll(linea).color(Color.GREEN));
+        if(!linea.isEmpty()) {
+            ruta.addAll(linea).color(Color.GREEN);
+        }else
+            System.out.println("Error, no hay puntos o no hay fichero.");
 
-        mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadas, 15));
+
+    }
+
+
+    public PolylineOptions getRuta(){
+        return ruta;
+    }
+
+    public LatLng getLastCoordenadas(){
+        return coordenadas;
     }
 
 }

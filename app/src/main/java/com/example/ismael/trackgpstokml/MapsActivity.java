@@ -1,5 +1,6 @@
 package com.example.ismael.trackgpstokml;
 
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -7,10 +8,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.xml.sax.SAXException;
 
@@ -26,13 +23,18 @@ import javax.xml.parsers.SAXParserFactory;
 /**
  * Activity de maps generada con: click derecho + new, Google, Maps activity
  * Se genera esta clase y la que está en res -> values -> google_maps_api.xml. Tienes que mirarlo y hacer lo que pone
+ * Como habrá que recorrer un fichero, tenemos que hacerlo con asynctask por si fuera muy largo.
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
+    // Esto lo hemos creado para poder usarlo en el asynctask
+    private SAXParser parser;
+    private SaxHandler handler;
+
     /**
-     * Esto está tal cual se ha generado
+     * Esto se deja tal cual se ha generado
      * @param savedInstanceState
      */
     @Override
@@ -64,24 +66,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
-        // Leemos el fichero KML con sax
+        /* Lo que hacemos aquí es leer el kml con sax y llenar el mapa de puntos.
+         * Hay que hacerlo con asynctask porque si hay muchos puntos peta. */
         SAXParserFactory factory = SAXParserFactory.newInstance();
 
         try {
-            SAXParser parser = factory.newSAXParser();
-
+            parser = factory.newSAXParser();
             // Manejador SAX programado por nosotros. Le pasamos nuestro mapa para que ponga los puntos.
-            SaxParser handler = new SaxParser(mMap);
+            handler = new SaxHandler(mMap);
 
-            parser.parse(new FileInputStream(new File(this.getFilesDir(), RegistradorKML.FICHERO)), handler);
-        } catch (SAXException e) {
-            System.out.println(e.getMessage());
-        } catch (ParserConfigurationException e) {
-            System.out.println(e.getMessage());
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            // AsyncTask. Le pasamos el directorio de ficheros como string
+            ProcesarKML procesador = new ProcesarKML();
+            procesador.execute(this.getFilesDir().getAbsolutePath());
+
+        } catch (SAXException e) { System.out.println(e.getMessage());
+        } catch (ParserConfigurationException e) { System.out.println(e.getMessage()); }
+
+    }
+
+    /* =============================== AsyncTask =============================== */
+
+    private class ProcesarKML extends AsyncTask<String, Integer, Boolean>{
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            try {
+
+                parser.parse(new FileInputStream(new File(strings[0], RegistradorKML.FICHERO)), handler);
+
+            } catch (FileNotFoundException e) { e.printStackTrace();
+            } catch (SAXException e) { e.printStackTrace();
+            } catch (IOException e) { e.printStackTrace(); }
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            mMap.addPolyline(handler.getRuta());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom( handler.getLastCoordenadas(), 15));
         }
     }
 }
