@@ -1,4 +1,4 @@
-package com.example.ismael.trackgpstokml;
+package com.example.ismael.trackgpstokml.util;
 
 import android.graphics.Color;
 
@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Clase de SAX que especifíca que se tiene que hacer mientras se lee el fichero KML
  */
+@Deprecated
 public class SaxHandler extends DefaultHandler {
 
     private GoogleMap mapa;

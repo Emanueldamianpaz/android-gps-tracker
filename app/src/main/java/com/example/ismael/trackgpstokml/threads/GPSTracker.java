@@ -1,8 +1,7 @@
-package com.example.ismael.trackgpstokml;
+package com.example.ismael.trackgpstokml.threads;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -12,10 +11,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
+import com.example.ismael.trackgpstokml.MainActivity;
+import com.example.ismael.trackgpstokml.util.RegistradorKML;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;

@@ -8,14 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
+import com.example.ismael.trackgpstokml.threads.GPSTracker;
+import com.example.ismael.trackgpstokml.threads.MapsActivity;
+import com.example.ismael.trackgpstokml.util.RegistradorKML;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -1,9 +1,12 @@
-package com.example.ismael.trackgpstokml;
+package com.example.ismael.trackgpstokml.threads;
 
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.example.ismael.trackgpstokml.R;
+import com.example.ismael.trackgpstokml.util.RegistradorKML;
+import com.example.ismael.trackgpstokml.util.SaxHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

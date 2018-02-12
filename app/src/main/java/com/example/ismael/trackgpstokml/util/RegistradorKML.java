@@ -1,4 +1,4 @@
-package com.example.ismael.trackgpstokml;
+package com.example.ismael.trackgpstokml.util;
 
 import android.content.Context;
 
@@ -11,6 +11,7 @@ import java.io.PrintWriter;
  *  Clase que manipula el fichero kml de texto
  * Created by Ismael on 05/02/2018.
  */
+@Deprecated
 public class RegistradorKML {
 
     public static String FICHERO = "ruta.kml";
