@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingStart="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingEnd="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ToggleButton
         android:id="@+id/botonGPS"
@@ -9,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textOff="@string/texto_iniciar"
         android:textOn="@string/texto_parar"/>
+
     <Button
         android:id="@+id/botonMaps"
         android:layout_width="match_parent"
@@ -19,6 +26,5 @@
     <TextView
         android:id="@+id/texto"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -2,7 +2,6 @@ package com.example.ismael.trackgpstokml;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -12,9 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -185,7 +181,7 @@ public class GPSTracker extends AppCompatActivity
 	 */
 	private void updateUI(Location loc) {
 		if (loc != null) {
-			registrador.addPoint(loc.getLatitude(), loc.getLongitude(), loc.getAltitude());
+			registrador.anhadirPunto(loc.getLatitude(), loc.getLongitude(), loc.getAltitude());
 		} else {
 			// Si entramos aquí es porque las coordenadas son desconocidas
 		}
